@@ -5,38 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Game</title>
     <style>
-        /* Flower pattern background */
+        /* Background Setup */
         body {
-            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #ff7e5f, #feb47b),
-                        radial-gradient(circle, #ff4081 20%, transparent 20%),
-                        radial-gradient(circle, #ff4081 10%, transparent 10%),
-                        radial-gradient(circle, #ff4081 5%, transparent 5%);
-            background-size: 150px 150px, 20px 20px, 30px 30px, 40px 40px; /* Flower-like pattern */
-            background-position: 0 0, 5px 5px, 10px 10px, 15px 15px;
-            background-attachment: fixed;
+            overflow: hidden; /* Hide overflow to prevent scrollbars */
             position: relative;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            font-family: 'Arial', sans-serif;
             color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            text-align: center;
-            overflow: hidden;
         }
 
+        /* Container for quiz */
         .container {
-            width: 80%;
-            max-width: 800px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
+            position: relative;
+            z-index: 10;
+            text-align: center;
             padding: 40px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
 
+        /* Basic layout styles */
         h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
@@ -124,6 +112,40 @@
             background-color: #3700B3;
         }
 
+        /* Flower Animation */
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: purple;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: floatFlowers 10s linear infinite;
+            opacity: 0.8;
+        }
+
+        /* Animating the flowers across the screen */
+        @keyframes floatFlowers {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+            }
+            25% {
+                transform: translate(20%, 30%) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translate(50%, -10%) scale(0.7);
+                opacity: 1;
+            }
+            75% {
+                transform: translate(-20%, -30%) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(0%, 50%) scale(0.5);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -214,15 +236,29 @@
         let currentQuestionIndex = 0;
         let correctAnswers = 0;
         let totalQuestions = 0;
-        let answeringInProgress = false;  // Track if answering is in progress
+        let answeringInProgress = false;
 
-        // Start quiz when user clicks on a topic
+        // Function to generate and display animated flowers
+        function createFlowers() {
+            const numberOfFlowers = 30; // Number of flowers on screen
+            for (let i = 0; i < numberOfFlowers; i++) {
+                const flower = document.createElement('div');
+                flower.classList.add('flower');
+                flower.style.left = `${Math.random() * 100}vw`;
+                flower.style.top = `${Math.random() * 100}vh`;
+                flower.style.animationDuration = `${Math.random() * 5 + 5}s`; // Vary animation duration
+                flower.style.animationDelay = `${Math.random() * 5}s`; // Vary animation start
+                document.body.appendChild(flower);
+            }
+        }
+
+        // Start the quiz when the user clicks a topic
         function startQuiz(topic) {
             currentTopic = topic;
             currentQuestionIndex = 0;
             correctAnswers = 0;
             totalQuestions = questions[topic].length;
-            answeringInProgress = false;  // Reset the progress
+            answeringInProgress = false;
 
             document.getElementById('homePage').style.display = 'none';
             document.getElementById('quizPage').style.display = 'block';
@@ -236,15 +272,12 @@
             const questionData = questions[currentTopic][currentQuestionIndex];
             const questionContainer = document.getElementById('questionContainer');
             
-            // Clear previous question
             questionContainer.innerHTML = '';
             
-            // Show question
             const questionElem = document.createElement('h2');
             questionElem.textContent = questionData.question;
             questionContainer.appendChild(questionElem);
             
-            // Show options
             questionData.options.forEach(option => {
                 const btn = document.createElement('button');
                 btn.textContent = option;
@@ -252,7 +285,6 @@
                 questionContainer.appendChild(btn);
             });
 
-            // Hide the next button until an answer is selected
             document.getElementById('nextBtn').style.display = 'none';
         }
 
@@ -260,35 +292,32 @@
         function checkAnswer(selectedAnswer) {
             const questionData = questions[currentTopic][currentQuestionIndex];
 
-            // Check if the answer is correct
             if (selectedAnswer === questionData.correctAnswer) {
                 correctAnswers++;
             }
 
-            // Disable all the options after an answer is selected
             const options = document.querySelectorAll('#questionContainer button');
             options.forEach(btn => btn.disabled = true);
 
-            // Show the next question button after selecting an answer
             document.getElementById('nextBtn').style.display = 'inline-block';
-            answeringInProgress = true;  // Mark answering as complete for this question
+            answeringInProgress = true;
         }
 
         // Move to next question
         function nextQuestion() {
-            if (!answeringInProgress) return; // Don't proceed if the question hasn't been answered yet
+            if (!answeringInProgress) return;
             
             currentQuestionIndex++;
 
             if (currentQuestionIndex < totalQuestions) {
-                showQuestion();  // Show the next question
-                answeringInProgress = false;  // Reset for the next question
+                showQuestion();
+                answeringInProgress = false;
             } else {
                 endQuiz();
             }
         }
 
-        // End the quiz and show score
+        // End the quiz and show the score
         function endQuiz() {
             document.getElementById('quizPage').style.display = 'none';
             document.getElementById('scorePage').style.display = 'block';
@@ -302,6 +331,9 @@
             document.getElementById('scorePage').style.display = 'none';
             document.getElementById('homePage').style.display = 'block';
         }
+
+        // Call createFlowers on page load to generate the animated flowers
+        createFlowers();
     </script>
 
 </body>
