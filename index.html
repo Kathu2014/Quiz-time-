@@ -147,12 +147,14 @@
         let currentQuestionIndex = 0;
         let correctAnswers = 0;
         let totalQuestions = 0;
+        let answeringInProgress = true;  // To track if we are in the middle of answering a question
 
         function startQuiz(topic) {
             currentTopic = topic;
             currentQuestionIndex = 0;
             correctAnswers = 0;
             totalQuestions = questions[topic].length;
+            answeringInProgress = true;  // Reset this at the beginning of a new quiz
 
             document.getElementById('homePage').style.display = 'none';
             document.getElementById('quizPage').style.display = 'block';
@@ -180,6 +182,9 @@
                 btn.onclick = () => checkAnswer(option);
                 questionContainer.appendChild(btn);
             });
+
+            // Hide the next button until an answer is selected
+            document.getElementById('nextBtn').style.display = 'none';
         }
 
         function checkAnswer(selectedAnswer) {
@@ -192,16 +197,18 @@
             const options = document.querySelectorAll('#questionContainer button');
             options.forEach(btn => btn.disabled = true);
 
-            // Show next button
+            // Show the next button after answering
             document.getElementById('nextBtn').style.display = 'inline-block';
+            answeringInProgress = false; // Mark answering as complete for this question
         }
 
         function nextQuestion() {
-            currentQuestionIndex++;
+            if (answeringInProgress) return; // Don't proceed if the question hasn't been answered
             
+            currentQuestionIndex++;
             if (currentQuestionIndex < totalQuestions) {
                 showQuestion();
-                document.getElementById('nextBtn').style.display = 'none';
+                answeringInProgress = true;  // Set back to true for the next question
             } else {
                 endQuiz();
             }
