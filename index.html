@@ -43,6 +43,7 @@
             margin: 20px 0;
         }
 
+        /* Topic Buttons Styling */
         .topic-btn {
             background-color: #FF4081; /* Pink */
             color: white;
@@ -54,14 +55,15 @@
             transition: background 0.3s ease;
         }
 
-        /* Make sure buttons maintain the same color on hover, active and focus */
+        /* Hover Effect */
         .topic-btn:hover {
             background-color: #F50057; /* Darker pink */
         }
 
+        /* Prevent color change when clicked */
         .topic-btn:active, .topic-btn:focus {
             background-color: #FF4081; /* Keep the original color */
-            outline: none;
+            outline: none; /* Remove outline */
         }
 
         #questionContainer {
@@ -69,8 +71,9 @@
             margin: 30px 0;
         }
 
+        /* Quiz Buttons Styling */
         button {
-            background-color: #4CAF50; /* Original button color */
+            background-color: #4CAF50; /* Green */
             color: white;
             padding: 15px 32px;
             text-align: center;
@@ -82,13 +85,15 @@
             transition: background 0.3s ease;
         }
 
+        /* Hover Effect */
         button:hover {
-            background-color: #45a049; /* Slightly darker on hover */
+            background-color: #45a049; /* Slightly darker green */
         }
 
+        /* Prevent color change when clicked */
         button:active, button:focus {
             background-color: #4CAF50; /* Keep the original color */
-            outline: none;
+            outline: none; /* Remove outline */
         }
 
         #nextBtn {
@@ -247,7 +252,7 @@
         let totalQuestions = 0;
         let answeringInProgress = false;
 
-        // Function to generate and display animated flowers
+        // Function to generate and display animated flowers (stars)
         function createFlowers() {
             const numberOfFlowers = 50; // Increase number of flowers
             for (let i = 0; i < numberOfFlowers; i++) {
