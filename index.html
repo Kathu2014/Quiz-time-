@@ -44,7 +44,7 @@
         }
 
         .topic-btn {
-            background: #FF4081; /* Pink */
+            background-color: #FF4081; /* Pink */
             color: white;
             padding: 15px 25px;
             font-size: 1.2rem;
@@ -54,9 +54,14 @@
             transition: background 0.3s ease;
         }
 
-        /* Make sure buttons maintain the same color */
+        /* Make sure buttons maintain the same color on hover, active and focus */
         .topic-btn:hover {
-            background: #FF4081; /* No change on hover */
+            background-color: #F50057; /* Darker pink */
+        }
+
+        .topic-btn:active, .topic-btn:focus {
+            background-color: #FF4081; /* Keep the original color */
+            outline: none;
         }
 
         #questionContainer {
@@ -65,7 +70,7 @@
         }
 
         button {
-            background-color: #4CAF50; /* Keep the button color consistent */
+            background-color: #4CAF50; /* Original button color */
             color: white;
             padding: 15px 32px;
             text-align: center;
@@ -81,13 +86,9 @@
             background-color: #45a049; /* Slightly darker on hover */
         }
 
-        /* Remove any color change when buttons are clicked */
-        button:active {
+        button:active, button:focus {
             background-color: #4CAF50; /* Keep the original color */
-        }
-
-        button:focus {
-            outline: none; /* Remove the outline but maintain color */
+            outline: none;
         }
 
         #nextBtn {
@@ -164,10 +165,10 @@
             <h1>Welcome to the Quiz Game!</h1>
             <p>Choose a topic to start:</p>
             <div class="topics">
-                <button class="topic-btn" onclick="startQuiz('history')" style="background-color: #FF4081;">History</button>
-                <button class="topic-btn" onclick="startQuiz('science')" style="background-color: #FF4081;">Science</button>
-                <button class="topic-btn" onclick="startQuiz('geography')" style="background-color: #FF4081;">Geography</button>
-                <button class="topic-btn" onclick="startQuiz('sports')" style="background-color: #FF4081;">Sports</button>
+                <button class="topic-btn" onclick="startQuiz('history')">History</button>
+                <button class="topic-btn" onclick="startQuiz('science')">Science</button>
+                <button class="topic-btn" onclick="startQuiz('geography')">Geography</button>
+                <button class="topic-btn" onclick="startQuiz('sports')">Sports</button>
             </div>
         </div>
 
