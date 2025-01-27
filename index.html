@@ -115,34 +115,34 @@
         /* Star Animation */
         .flower {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 15px;
+            height: 15px;
             background-color: purple;
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            animation: floatFlowers 10s linear infinite;
+            animation: floatFlowers 20s linear infinite;
             opacity: 0.8;
         }
 
-        /* Animating the flowers across the screen */
+        /* Animating the flowers across the screen with more movement */
         @keyframes floatFlowers {
             0% {
-                transform: translate(-50%, -50%) scale(0.5);
+                transform: translate(-50%, -50%) scale(0.8);
                 opacity: 1;
             }
             25% {
-                transform: translate(20%, 30%) scale(1);
+                transform: translate(50%, 30%) scale(1.2);
                 opacity: 0.8;
             }
             50% {
-                transform: translate(50%, -10%) scale(0.7);
+                transform: translate(70%, -20%) scale(1);
                 opacity: 1;
             }
             75% {
-                transform: translate(-20%, -30%) scale(1);
+                transform: translate(-50%, 20%) scale(1.2);
                 opacity: 0.8;
             }
             100% {
-                transform: translate(0%, 50%) scale(0.5);
+                transform: translate(0%, 60%) scale(1);
                 opacity: 1;
             }
         }
@@ -238,16 +238,16 @@
         let totalQuestions = 0;
         let answeringInProgress = false;
 
-        // Function to generate and display animated flowers
+        // Function to generate and display animated flowers (stars)
         function createFlowers() {
-            const numberOfFlowers = 30; // Number of flowers on screen
+            const numberOfFlowers = 50; // Increase number of flowers
             for (let i = 0; i < numberOfFlowers; i++) {
                 const flower = document.createElement('div');
                 flower.classList.add('flower');
                 flower.style.left = `${Math.random() * 100}vw`;
                 flower.style.top = `${Math.random() * 100}vh`;
-                flower.style.animationDuration = `${Math.random() * 5 + 5}s`; // Vary animation duration
-                flower.style.animationDelay = `${Math.random() * 5}s`; // Vary animation start
+                flower.style.animationDuration = `${Math.random() * 15 + 10}s`; // Vary animation duration
+                flower.style.animationDelay = `${Math.random() * 10}s`; // Vary animation start
                 document.body.appendChild(flower);
             }
         }
