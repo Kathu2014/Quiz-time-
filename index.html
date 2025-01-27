@@ -14,14 +14,20 @@
             background: linear-gradient(135deg, #FF4081, #9C27B0, #2196F3); /* Pink, Purple, Blue Gradient */
             font-family: 'Arial', sans-serif;
             color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ensures content is vertically centered */
+            text-align: center;
         }
 
         /* Container for quiz */
         .container {
             position: relative;
             z-index: 10;
-            text-align: center;
             padding: 40px;
+            max-width: 800px; /* Limit max width */
+            width: 100%;
         }
 
         /* Basic layout styles */
@@ -112,7 +118,7 @@
             background-color: #3700B3;
         }
 
-        /* Star Animation */
+        /* Flower Animation */
         .flower {
             position: absolute;
             width: 15px;
@@ -238,7 +244,7 @@
         let totalQuestions = 0;
         let answeringInProgress = false;
 
-        // Function to generate and display animated flowers (stars)
+        // Function to generate and display animated flowers
         function createFlowers() {
             const numberOfFlowers = 50; // Increase number of flowers
             for (let i = 0; i < numberOfFlowers; i++) {
