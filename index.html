@@ -147,14 +147,14 @@
         let currentQuestionIndex = 0;
         let correctAnswers = 0;
         let totalQuestions = 0;
-        let answeringInProgress = true;  // To track if we are in the middle of answering a question
+        let answeringInProgress = false;  // Track if answering is in progress
 
         function startQuiz(topic) {
             currentTopic = topic;
             currentQuestionIndex = 0;
             correctAnswers = 0;
             totalQuestions = questions[topic].length;
-            answeringInProgress = true;  // Reset this at the beginning of a new quiz
+            answeringInProgress = false;  // Reset the progress
 
             document.getElementById('homePage').style.display = 'none';
             document.getElementById('quizPage').style.display = 'block';
@@ -189,26 +189,29 @@
 
         function checkAnswer(selectedAnswer) {
             const questionData = questions[currentTopic][currentQuestionIndex];
+
+            // Check if the answer is correct
             if (selectedAnswer === questionData.correctAnswer) {
                 correctAnswers++;
             }
 
-            // Disable options after selecting an answer
+            // Disable all the options after an answer is selected
             const options = document.querySelectorAll('#questionContainer button');
             options.forEach(btn => btn.disabled = true);
 
-            // Show the next button after answering
+            // Show the next question button after selecting an answer
             document.getElementById('nextBtn').style.display = 'inline-block';
-            answeringInProgress = false; // Mark answering as complete for this question
+            answeringInProgress = true;  // Mark answering as complete for this question
         }
 
         function nextQuestion() {
-            if (answeringInProgress) return; // Don't proceed if the question hasn't been answered
+            if (!answeringInProgress) return; // Don't proceed if the question hasn't been answered yet
             
             currentQuestionIndex++;
+
             if (currentQuestionIndex < totalQuestions) {
-                showQuestion();
-                answeringInProgress = true;  // Set back to true for the next question
+                showQuestion();  // Show the next question
+                answeringInProgress = false;  // Reset for the next question
             } else {
                 endQuiz();
             }
