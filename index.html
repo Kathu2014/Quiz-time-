@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="homePage">
+            <h1>Welcome to the Quiz Game!</h1>
+            <p>Choose a topic to start:</p>
+            <div class="topics">
+                <button class="topic-btn" onclick="startQuiz('history')">History</button>
+                <button class="topic-btn" onclick="startQuiz('science')">Science</button>
+                <button class="topic-btn" onclick="startQuiz('geography')">Geography</button>
+                <button class="topic-btn" onclick="startQuiz('sports')">Sports</button>
+            </div>
+        </div>
+
+        <div id="quizPage" style="display: none;">
+            <h1 id="quizTitle">Quiz on <span id="topicName"></span></h1>
+            <div id="questionContainer">
+                <!-- Questions will be dynamically injected here -->
+            </div>
+            <button id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question</button>
+        </div>
+
+        <div id="scorePage" style="display: none;">
+            <h1>Quiz Finished!</h1>
+            <p id="scoreText"></p>
+            <button onclick="restartGame()">Restart</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f0f8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    width: 80%;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:active {
+    background-color: #3e8e41;
+}
+
+button:focus {
+    outline: none;
+}
+
+.topics {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#questionContainer {
+    font-size: 20px;
+    margin: 20px;
+}
+
+#nextBtn {
+    background-color: #FF5722;
+}
+const questions = {
+    history: [
+        {
+            question: "Who was the first president of the United States?",
+            options: ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams"],
+            correctAnswer: "George Washington"
+        },
+        {
+            question: "What year did World War II end?",
+            options: ["1945", "1940", "1939", "1950"],
+            correctAnswer: "1945"
+        },
+        // Add more history questions here...
+    ],
+    science: [
+        {
+            question: "What is the chemical symbol for water?",
+            options: ["H2O", "CO2", "O2", "N2"],
+            correctAnswer: "H2O"
+        },
+        {
+            question: "What planet is known as the Red Planet?",
+            options: ["Mars", "Earth", "Jupiter", "Saturn"],
+            correctAnswer: "Mars"
+        },
+        // Add more science questions here...
+    ],
+    geography: [
+        {
+            question: "What is the capital of France?",
+            options: ["Paris", "London", "Berlin", "Rome"],
+            correctAnswer: "Paris"
+        },
+        {
+            question: "Which continent is Egypt located in?",
+            options: ["Africa", "Asia", "Europe", "Australia"],
+            correctAnswer: "Africa"
+        },
+        // Add more geography questions here...
+    ],
+    sports: [
+        {
+            question: "Who won the FIFA World Cup in 2018?",
+            options: ["France", "Brazil", "Germany", "Argentina"],
+            correctAnswer: "France"
+        },
+        {
+            question: "In what sport would you perform a slam dunk?",
+            options: ["Basketball", "Football", "Tennis", "Baseball"],
+            correctAnswer: "Basketball"
+        },
+        // Add more sports questions here...
+    ]
+};
+
+let currentTopic = '';
+let currentQuestionIndex = 0;
+let correctAnswers = 0;
+let totalQuestions = 0;
+
+function startQuiz(topic) {
+    currentTopic = topic;
+    currentQuestionIndex = 0;
+    correctAnswers = 0;
+    totalQuestions = questions[topic].length;
+
+    document.getElementById('homePage').style.display = 'none';
+    document.getElementById('quizPage').style.display = 'block';
+    document.getElementById('topicName').textContent = topic.charAt(0).toUpperCase() + topic.slice(1);
+    
+    showQuestion();
+}
+
+function showQuestion() {
+    const questionData = questions[currentTopic][currentQuestionIndex];
+    const questionContainer = document.getElementById('questionContainer');
+    
+    // Clear previous question
+    questionContainer.innerHTML = '';
+    
+    // Show question
+    const questionElem = document.createElement('h2');
+    questionElem.textContent = questionData.question;
+    questionContainer.appendChild(questionElem);
+    
+    // Show options
+    questionData.options.forEach(option => {
+        const btn = document.createElement('button');
+        btn.textContent = option;
+        btn.onclick = () => checkAnswer(option);
+        questionContainer.appendChild(btn);
+    });
+}
+
+function checkAnswer(selectedAnswer) {
+    const questionData = questions[currentTopic][currentQuestionIndex];
+    if (selectedAnswer === questionData.correctAnswer) {
+        correctAnswers++;
+    }
+
+    // Disable options after selecting an answer
+    const options = document.querySelectorAll('#questionContainer button');
+    options.forEach(btn => btn.disabled = true);
+
+    // Show next button
+    document.getElementById('nextBtn').style.display = 'inline-block';
+}
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    
+    if (currentQuestionIndex < totalQuestions) {
+        showQuestion();
+        document.getElementById('nextBtn').style.display = 'none';
+    } else {
+        endQuiz();
+    }
+}
+
+function endQuiz() {
+    document.getElementById('quizPage').style.display = 'none';
+    document.getElementById('scorePage').style.display = 'block';
+    
+    const incorrectAnswers = totalQuestions - correctAnswers;
+    document.getElementById('scoreText').textContent = `You got ${correctAnswers} out of ${totalQuestions} correct! You got ${incorrectAnswers} incorrect.`;
+}
+
+function restartGame() {
+    document.getElementById('scorePage').style.display = 'none';
+    document.getElementById('homePage').style.display = 'block';
+}
