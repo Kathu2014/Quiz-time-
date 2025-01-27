@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Game</title>
     <style>
-        /* Global background that stays the same */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -23,7 +22,6 @@
             text-align: center;
         }
 
-        /* Main container for all content */
         .container {
             width: 80%;
             max-width: 800px;
@@ -125,7 +123,6 @@
 <body>
 
     <div class="container">
-        <!-- Homepage -->
         <div id="homePage">
             <h1>Welcome to the Quiz Game!</h1>
             <p>Choose a topic to start:</p>
@@ -137,7 +134,6 @@
             </div>
         </div>
 
-        <!-- Quiz page -->
         <div id="quizPage" style="display: none;">
             <h1 id="quizTitle">Quiz on <span id="topicName"></span></h1>
             <div id="questionContainer">
@@ -146,7 +142,6 @@
             <button id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question</button>
         </div>
 
-        <!-- Score page -->
         <div id="scorePage" style="display: none;">
             <h1>Quiz Finished!</h1>
             <p id="scoreText"></p>
@@ -212,7 +207,6 @@
         let totalQuestions = 0;
         let answeringInProgress = false;  // Track if answering is in progress
 
-        // Start quiz when user clicks on a topic
         function startQuiz(topic) {
             currentTopic = topic;
             currentQuestionIndex = 0;
@@ -227,7 +221,6 @@
             showQuestion();
         }
 
-        // Display the current question and options
         function showQuestion() {
             const questionData = questions[currentTopic][currentQuestionIndex];
             const questionContainer = document.getElementById('questionContainer');
@@ -252,7 +245,6 @@
             document.getElementById('nextBtn').style.display = 'none';
         }
 
-        // Check if the answer is correct
         function checkAnswer(selectedAnswer) {
             const questionData = questions[currentTopic][currentQuestionIndex];
 
@@ -270,7 +262,6 @@
             answeringInProgress = true;  // Mark answering as complete for this question
         }
 
-        // Move to next question
         function nextQuestion() {
             if (!answeringInProgress) return; // Don't proceed if the question hasn't been answered yet
             
@@ -284,7 +275,6 @@
             }
         }
 
-        // End the quiz and show score
         function endQuiz() {
             document.getElementById('quizPage').style.display = 'none';
             document.getElementById('scorePage').style.display = 'block';
@@ -293,7 +283,6 @@
             document.getElementById('scoreText').textContent = `You got ${correctAnswers} out of ${totalQuestions} correct! You got ${incorrectAnswers} incorrect.`;
         }
 
-        // Restart the game
         function restartGame() {
             document.getElementById('scorePage').style.display = 'none';
             document.getElementById('homePage').style.display = 'block';
