@@ -14,6 +14,8 @@
             background: linear-gradient(135deg, #FF4081, #9C27B0, #2196F3); /* Pink, Purple, Blue Gradient */
             font-family: 'Arial', sans-serif;
             color: white;
+            height: 100vh; /* Ensure the body takes the full viewport height */
+            background-size: 100% 100%; /* Remove separation lines */
         }
 
         /* Container for quiz */
@@ -58,7 +60,7 @@
         }
 
         button {
-            background-color: #4CAF50;
+            background-color: #FF4081; /* Keep buttons pink */
             color: white;
             padding: 15px 32px;
             text-align: center;
@@ -71,11 +73,11 @@
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #F50057; /* Darker pink */
         }
 
         button:active {
-            background-color: #388e3c;
+            background-color: #E91E63;
         }
 
         button:focus {
@@ -123,7 +125,7 @@
             opacity: 0.8;
         }
 
-        /* Animating the flowers across the screen with more movement */
+        /* Animating the flowers across the screen */
         @keyframes floatFlowers {
             0% {
                 transform: translate(-50%, -50%) scale(0.8);
@@ -194,19 +196,19 @@
                     correctAnswer: "1945"
                 },
                 {
-                    question: "What year did the American Civil War begin?",
-                    options: ["1861", "1776", "1914", "1832"],
-                    correctAnswer: "1861"
+                    question: "Who was the first woman in space?",
+                    options: ["Valentina Tereshkova", "Sally Ride", "Mae Jemison", "Eileen Collins"],
+                    correctAnswer: "Valentina Tereshkova"
                 },
                 {
-                    question: "Who discovered America?",
-                    options: ["Christopher Columbus", "Vasco da Gama", "Leif Erikson", "Marco Polo"],
-                    correctAnswer: "Christopher Columbus"
+                    question: "What year did the Titanic sink?",
+                    options: ["1912", "1905", "1920", "1898"],
+                    correctAnswer: "1912"
                 },
                 {
-                    question: "What was the first country to land a man on the moon?",
-                    options: ["USA", "Soviet Union", "China", "Japan"],
-                    correctAnswer: "USA"
+                    question: "Which country was the first to give women the right to vote?",
+                    options: ["New Zealand", "Canada", "USA", "Australia"],
+                    correctAnswer: "New Zealand"
                 }
             ],
             science: [
@@ -221,18 +223,18 @@
                     correctAnswer: "Mars"
                 },
                 {
-                    question: "What is the force that pulls objects towards the Earth?",
-                    options: ["Gravity", "Magnetism", "Friction", "Pressure"],
-                    correctAnswer: "Gravity"
+                    question: "What is the boiling point of water?",
+                    options: ["100°C", "90°C", "80°C", "110°C"],
+                    correctAnswer: "100°C"
                 },
                 {
-                    question: "What gas do plants use in photosynthesis?",
-                    options: ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"],
-                    correctAnswer: "Carbon dioxide"
+                    question: "Who developed the theory of relativity?",
+                    options: ["Albert Einstein", "Isaac Newton", "Nikolai Tesla", "Galileo Galilei"],
+                    correctAnswer: "Albert Einstein"
                 },
                 {
                     question: "What is the largest organ in the human body?",
-                    options: ["Skin", "Heart", "Liver", "Brain"],
+                    options: ["Skin", "Liver", "Heart", "Brain"],
                     correctAnswer: "Skin"
                 }
             ],
@@ -248,19 +250,19 @@
                     correctAnswer: "Africa"
                 },
                 {
-                    question: "What is the largest ocean in the world?",
-                    options: ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean"],
-                    correctAnswer: "Pacific Ocean"
+                    question: "Which country has the most pyramids?",
+                    options: ["Sudan", "Egypt", "Mexico", "China"],
+                    correctAnswer: "Sudan"
                 },
                 {
-                    question: "Which country has the longest coastline?",
-                    options: ["Canada", "Australia", "Russia", "USA"],
-                    correctAnswer: "Canada"
-                },
-                {
-                    question: "Which river is the longest in the world?",
+                    question: "What is the longest river in the world?",
                     options: ["Nile", "Amazon", "Yangtze", "Mississippi"],
                     correctAnswer: "Nile"
+                },
+                {
+                    question: "Which country is known as the Land of the Rising Sun?",
+                    options: ["Japan", "China", "South Korea", "Thailand"],
+                    correctAnswer: "Japan"
                 }
             ],
             sports: [
@@ -275,19 +277,19 @@
                     correctAnswer: "Basketball"
                 },
                 {
-                    question: "Who holds the record for the most Olympic gold medals?",
-                    options: ["Michael Phelps", "Usain Bolt", "Larisa Latynina", "Mark Spitz"],
-                    correctAnswer: "Michael Phelps"
+                    question: "What is the maximum number of players allowed on a football team?",
+                    options: ["11", "9", "13", "7"],
+                    correctAnswer: "11"
                 },
                 {
-                    question: "What is the maximum score in a single game of bowling?",
-                    options: ["300", "200", "150", "100"],
-                    correctAnswer: "300"
+                    question: "Which country is the origin of the sport Rugby?",
+                    options: ["England", "New Zealand", "Australia", "South Africa"],
+                    correctAnswer: "England"
                 },
                 {
-                    question: "What is the king of sports?",
-                    options: ["Soccer", "Basketball", "Tennis", "Cricket"],
-                    correctAnswer: "Soccer"
+                    question: "What is the distance of a marathon?",
+                    options: ["42.195 km", "40 km", "50 km", "30 km"],
+                    correctAnswer: "42.195 km"
                 }
             ]
         };
@@ -297,15 +299,6 @@
         let correctAnswers = 0;
         let totalQuestions = 0;
         let answeringInProgress = false;
-
-        // Function to shuffle the options array randomly
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-            }
-            return array;
-        }
 
         // Function to generate and display animated flowers (stars)
         function createFlowers() {
@@ -347,11 +340,7 @@
             questionElem.textContent = questionData.question;
             questionContainer.appendChild(questionElem);
             
-            // Shuffle the options randomly
-            const shuffledOptions = shuffleArray(questionData.options);
-
-            // Create buttons for each option
-            shuffledOptions.forEach(option => {
+            questionData.options.forEach(option => {
                 const btn = document.createElement('button');
                 btn.textContent = option;
                 btn.onclick = () => checkAnswer(option);
