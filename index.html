@@ -14,16 +14,20 @@
             background: linear-gradient(135deg, #FF4081, #9C27B0, #2196F3); /* Pink, Purple, Blue Gradient */
             font-family: 'Arial', sans-serif;
             color: white;
-            height: 100vh; /* Ensure the body takes the full viewport height */
-            background-size: 100% 100%; /* Remove separation lines */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ensures content is vertically centered */
+            text-align: center;
         }
 
         /* Container for quiz */
         .container {
             position: relative;
             z-index: 10;
-            text-align: center;
             padding: 40px;
+            max-width: 800px; /* Limit max width */
+            width: 100%;
         }
 
         /* Basic layout styles */
@@ -39,8 +43,9 @@
             margin: 20px 0;
         }
 
+        /* Topic Buttons Styling */
         .topic-btn {
-            background: #FF4081; /* Pink */
+            background-color: #FF4081; /* Pink */
             color: white;
             padding: 15px 25px;
             font-size: 1.2rem;
@@ -50,8 +55,15 @@
             transition: background 0.3s ease;
         }
 
+        /* Hover Effect */
         .topic-btn:hover {
-            background: #F50057; /* Darker pink */
+            background-color: #F50057; /* Darker pink */
+        }
+
+        /* Prevent color change when clicked */
+        .topic-btn:active, .topic-btn:focus {
+            background-color: #FF4081; /* Keep the original color */
+            outline: none; /* Remove outline */
         }
 
         #questionContainer {
@@ -59,8 +71,9 @@
             margin: 30px 0;
         }
 
+        /* Quiz Buttons Styling */
         button {
-            background-color: #FF4081; /* Keep buttons pink */
+            background-color: #4CAF50; /* Green */
             color: white;
             padding: 15px 32px;
             text-align: center;
@@ -72,16 +85,15 @@
             transition: background 0.3s ease;
         }
 
+        /* Hover Effect */
         button:hover {
-            background-color: #F50057; /* Darker pink */
+            background-color: #45a049; /* Slightly darker green */
         }
 
-        button:active {
-            background-color: #E91E63;
-        }
-
-        button:focus {
-            outline: none;
+        /* Prevent color change when clicked */
+        button:active, button:focus {
+            background-color: #4CAF50; /* Keep the original color */
+            outline: none; /* Remove outline */
         }
 
         #nextBtn {
@@ -125,7 +137,7 @@
             opacity: 0.8;
         }
 
-        /* Animating the flowers across the screen */
+        /* Animating the flowers across the screen with more movement */
         @keyframes floatFlowers {
             0% {
                 transform: translate(-50%, -50%) scale(0.8);
@@ -196,19 +208,24 @@
                     correctAnswer: "1945"
                 },
                 {
-                    question: "Who was the first woman in space?",
-                    options: ["Valentina Tereshkova", "Sally Ride", "Mae Jemison", "Eileen Collins"],
-                    correctAnswer: "Valentina Tereshkova"
+                    question: "Who was the first emperor of China?",
+                    options: ["Qin Shi Huang", "Wudi", "Han Gaozu", "Li Shimin"],
+                    correctAnswer: "Qin Shi Huang"
                 },
                 {
-                    question: "What year did the Titanic sink?",
-                    options: ["1912", "1905", "1920", "1898"],
+                    question: "In which year did the Titanic sink?",
+                    options: ["1912", "1905", "1920", "1935"],
                     correctAnswer: "1912"
                 },
                 {
-                    question: "Which country was the first to give women the right to vote?",
-                    options: ["New Zealand", "Canada", "USA", "Australia"],
-                    correctAnswer: "New Zealand"
+                    question: "Who was the British prime minister during World War II?",
+                    options: ["Winston Churchill", "Neville Chamberlain", "Clement Attlee", "Harold Wilson"],
+                    correctAnswer: "Winston Churchill"
+                },
+                {
+                    question: "Which battle is considered the turning point of the American Civil War?",
+                    options: ["Battle of Gettysburg", "Battle of Antietam", "Battle of Fort Sumter", "Battle of Bull Run"],
+                    correctAnswer: "Battle of Gettysburg"
                 }
             ],
             science: [
@@ -223,19 +240,24 @@
                     correctAnswer: "Mars"
                 },
                 {
-                    question: "What is the boiling point of water?",
-                    options: ["100°C", "90°C", "80°C", "110°C"],
-                    correctAnswer: "100°C"
-                },
-                {
-                    question: "Who developed the theory of relativity?",
-                    options: ["Albert Einstein", "Isaac Newton", "Nikolai Tesla", "Galileo Galilei"],
-                    correctAnswer: "Albert Einstein"
+                    question: "What is the center of an atom called?",
+                    options: ["Nucleus", "Electron", "Proton", "Neutron"],
+                    correctAnswer: "Nucleus"
                 },
                 {
                     question: "What is the largest organ in the human body?",
-                    options: ["Skin", "Liver", "Heart", "Brain"],
+                    options: ["Skin", "Liver", "Heart", "Lungs"],
                     correctAnswer: "Skin"
+                },
+                {
+                    question: "Which element is the most abundant in the Earth's crust?",
+                    options: ["Oxygen", "Silicon", "Aluminum", "Iron"],
+                    correctAnswer: "Oxygen"
+                },
+                {
+                    question: "What gas do plants absorb from the atmosphere for photosynthesis?",
+                    options: ["Carbon Dioxide", "Oxygen", "Nitrogen", "Hydrogen"],
+                    correctAnswer: "Carbon Dioxide"
                 }
             ],
             geography: [
@@ -250,9 +272,14 @@
                     correctAnswer: "Africa"
                 },
                 {
-                    question: "Which country has the most pyramids?",
-                    options: ["Sudan", "Egypt", "Mexico", "China"],
-                    correctAnswer: "Sudan"
+                    question: "What is the largest desert in the world?",
+                    options: ["Sahara", "Kalahari", "Arabian", "Antarctic"],
+                    correctAnswer: "Antarctic"
+                },
+                {
+                    question: "Which country is known as the Land of the Rising Sun?",
+                    options: ["Japan", "China", "India", "Thailand"],
+                    correctAnswer: "Japan"
                 },
                 {
                     question: "What is the longest river in the world?",
@@ -260,9 +287,9 @@
                     correctAnswer: "Nile"
                 },
                 {
-                    question: "Which country is known as the Land of the Rising Sun?",
-                    options: ["Japan", "China", "South Korea", "Thailand"],
-                    correctAnswer: "Japan"
+                    question: "Which country has the most time zones?",
+                    options: ["Russia", "USA", "Canada", "China"],
+                    correctAnswer: "Russia"
                 }
             ],
             sports: [
@@ -277,19 +304,24 @@
                     correctAnswer: "Basketball"
                 },
                 {
-                    question: "What is the maximum number of players allowed on a football team?",
-                    options: ["11", "9", "13", "7"],
-                    correctAnswer: "11"
+                    question: "Which country hosted the 2008 Summer Olympics?",
+                    options: ["China", "Greece", "USA", "Australia"],
+                    correctAnswer: "China"
                 },
                 {
-                    question: "Which country is the origin of the sport Rugby?",
-                    options: ["England", "New Zealand", "Australia", "South Africa"],
-                    correctAnswer: "England"
+                    question: "Which sport is known as 'the king of sports'?",
+                    options: ["Soccer", "Basketball", "Tennis", "Cricket"],
+                    correctAnswer: "Soccer"
                 },
                 {
-                    question: "What is the distance of a marathon?",
-                    options: ["42.195 km", "40 km", "50 km", "30 km"],
-                    correctAnswer: "42.195 km"
+                    question: "What is the maximum score in a single game of bowling?",
+                    options: ["300", "200", "150", "100"],
+                    correctAnswer: "300"
+                },
+                {
+                    question: "Who holds the record for the most Olympic gold medals?",
+                    options: ["Michael Phelps", "Usain Bolt", "Larisa Latynina", "Mark Spitz"],
+                    correctAnswer: "Michael Phelps"
                 }
             ]
         };
@@ -400,3 +432,4 @@
 
 </body>
 </html>
+
